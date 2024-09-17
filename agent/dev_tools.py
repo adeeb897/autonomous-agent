@@ -1,53 +1,43 @@
-from tools import Tool
+# from tools import Tool
 from git import Repo
-import os
+from github import Github
+from langchain.tools import tool
+from os import getenv
 
-# Initialize git repository
-repo_url = "https://github.com/adeeb897/autonomous-agent.git"
-repo_dir = os.path.join("temp", "agent_workspace")
+# Configure git repository
+repo_name = "adeeb897/autonomous-agent"
+repo_url = f"https://github.com/{repo_name}.git"
+branch_name = "feature_branch"
+github_token_var = "GITHUB_ACCESS_TOKEN"
 
-# If the workspace already exists, delete it
-if os.path.exists(repo_dir):
-    import stat
-    for root, dirs, files in os.walk(repo_dir, topdown=False):
-        for name in files:
-            filename = os.path.join(root, name)
-            os.chmod(filename, stat.S_IWRITE)
-            os.remove(filename)
-        for name in dirs:
-            os.rmdir(os.path.join(root, name))
-    os.rmdir(repo_dir)
+class GitRepo:
+    
+    def __init__(self, repo_dir):
+        self.repo = Repo.clone_from(repo_url, repo_dir)
+        # Initialize GitHub API using the access token environment variable
+        self.github = Github(getenv(github_token_var))
+        # Create a temporary feature branch
+        self.repo.git.checkout("HEAD", b=branch_name)
 
-repo = Repo.clone_from(repo_url, repo_dir)
+    # $ git commit -m <message>
+    @tool
+    def commit(self, commit_message: str) -> str:
+        """Commit changes to the git repository with the given commit message."""
+        return self.repo.index.commit(commit_message)
 
-def get_files_from_workspace():
-    # Loop through all files in the workspace
-    files = []
-    for root, _, filenames in os.walk(repo_dir):
-        # Ignore .git files
-        if ".git" in root:
-            continue
-        for filename in filenames:
-            # Ignore unsupported file types
-            if not filename.endswith((".py", ".txt", ".md", ".json")):
-                continue
-            files.append(os.path.join(root, filename))
-    return [open(path, "rb") for path in files]
+    @tool
+    def create_pull_request(self, description: str) -> str:
+        """Create a pull request on GitHub with the given description and send it for review."""
+        origin = self.repo.remote(name='origin')
+        origin.push(branch_name)
 
-# Define dev tools to be used by the model
-dev_tools = []
-
-def write_file(file_path: str, content: str) -> str:
-    with open(os.path.join(repo_dir, file_path), "w") as f:
-        return f.write(content)
-dev_tools.append(Tool(write_file, "Write content to file"))
-
-# $ git commit -m <message>
-def commit(commit_message: str) -> str:
-    return repo.index.commit(commit_message)
-dev_tools.append(Tool(commit, "Commit changes"))
-
-def create_pull_request(description: str) -> str:
-    print("Creating pull request with description: ", description)
-    return "Success"
-dev_tools.append(Tool(create_pull_request, "Create a pull request"))
+        # Create a pull request
+        repo = self.github.get_repo(self.repo_name)
+        pr = repo.create_pull(
+            title="Pull request from " + branch_name,
+            body=description,
+            head=branch_name,
+            base="main"
+        )
+        print(f"Pull request created: {pr.html_url}")
+        return f"Pull request created: {pr.html_url}"
