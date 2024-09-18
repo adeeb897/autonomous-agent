@@ -22,6 +22,14 @@ class KnowledgeIngestion:
         else:
             raise Exception(f"Failed to fetch resource from {url}")
 
+    def fetch_api_data(self, api_url, params=None):
+        """Fetch data from an API endpoint."""
+        response = requests.get(api_url, params=params)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"Failed to fetch data from API {api_url}")
+
     def filter_content(self, file_path):
         """Filter content to exclude low-quality or harmful information."""
         filtered_file_path = os.path.join(self.root_dir, "filtered_" + os.path.basename(file_path))
@@ -39,11 +47,23 @@ class KnowledgeIngestion:
             f.write(content)
         return filtered_file_path
 
+    def preprocess_data(self, data):
+        """Preprocess fetched data."""
+        # Implement preprocessing logic here
+        return data
+
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""
         file_path = self.fetch_resource(url, filename)
         filtered_path = self.filter_content(file_path)
         return filtered_path
+
+    def ingest_api_data(self, api_url, params=None):
+        """Fetch, preprocess, and save API data to the knowledge base."""
+        data = self.fetch_api_data(api_url, params=params)
+        preprocessed_data = self.preprocess_data(data)
+        # Save preprocessed data to file or database
+        return preprocessed_data
 
 # Example usage
 if __name__ == "__main__":
@@ -55,4 +75,11 @@ if __name__ == "__main__":
             ingested_path = ingestion.ingest_resource(resource_url, filename)
             print(f"Resource ingested at: {ingested_path}")
         except ValueError as e:
+            print(e)
+
+        api_url = "https://api.example.com/data1"
+        try:
+            api_data = ingestion.ingest_api_data(api_url)
+            print(f"API data ingested: {api_data}")
+        except Exception as e:
             print(e)
