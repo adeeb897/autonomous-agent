@@ -1,58 +1,51 @@
-import os
-import requests
-from tempfile import TemporaryDirectory
-from dev_tools import GitRepo
-from langchain_community.agent_toolkits import FileManagementToolkit
-from detoxify import Detoxify
+import re
+from typing import List, Dict
 
 class KnowledgeIngestion:
-    def __init__(self, root_dir):
-        self.root_dir = root_dir
-        self.file_toolkit = FileManagementToolkit(root_dir=root_dir)
-        self.repo = GitRepo(root_dir)
+    def __init__(self):
+        self.trusted_sources = [
+            'https://www.un.org',
+            'https://www.who.int',
+            'https://www.nature.com',
+            'https://www.sciencemag.org',
+            'https://www.jstor.org'
+        ]
 
-    def fetch_resource(self, url, filename):
-        """Fetch a resource from a URL and save it to the workspace."""
-        response = requests.get(url)
-        if response.status_code == 200:
-            file_path = os.path.join(self.root_dir, filename)
-            with open(file_path, 'wb') as f:
-                f.write(response.content)
-            return file_path
-        else:
-            raise Exception(f"Failed to fetch resource from {url}")
+    def is_trusted_source(self, url: str) -> bool:
+        return any(trusted in url for trusted in self.trusted_sources)
 
-    def filter_content(self, file_path):
-        """Filter content to exclude low-quality or harmful information."""
-        filtered_file_path = os.path.join(self.root_dir, "filtered_" + os.path.basename(file_path))
-        
-        with open(file_path, 'r') as f:
-            content = f.read()
-        
-        # Enhanced content filtering logic
-        # Use Detoxify to check for toxicity in the content
-        results = Detoxify('original').predict(content)
-        if results['toxicity'] > 0.5 or results['severe_toxicity'] > 0.5 or results['obscene'] > 0.5 or results['threat'] > 0.5 or results['insult'] > 0.5 or results['identity_attack'] > 0.5:
-            raise ValueError("Content is considered harmful and has been filtered out.")
-        
-        with open(filtered_file_path, 'w') as f:
-            f.write(content)
-        return filtered_file_path
+    def filter_content(self, content: str) -> bool:
+        # Example filter: Exclude content with hate speech or disinformation
+        disallowed_patterns = [
+            r'hate speech',
+            r'disinformation',
+            r'fake news'
+        ]
+        for pattern in disallowed_patterns:
+            if re.search(pattern, content, re.IGNORECASE):
+                return False
+        return True
 
-    def ingest_resource(self, url, filename):
-        """Fetch, filter, and save a resource to the knowledge base."""
-        file_path = self.fetch_resource(url, filename)
-        filtered_path = self.filter_content(file_path)
-        return filtered_path
+    def ingest_knowledge(self, sources: List[Dict[str, str]]) -> List[Dict[str, str]]:
+        ingested_knowledge = []
+        for source in sources:
+            url = source.get('url')
+            content = source.get('content')
+            if self.is_trusted_source(url) and self.filter_content(content):
+                processed_content = self.process_content(content)
+                ingested_knowledge.append({'url': url, 'content': processed_content})
+        return ingested_knowledge
+
+    def process_content(self, content: str) -> str:
+        # Placeholder for content processing logic
+        return content
 
 # Example usage
-if __name__ == "__main__":
-    with TemporaryDirectory() as temp_dir:
-        ingestion = KnowledgeIngestion(temp_dir)
-        resource_url = "https://example.com/resource.pdf"
-        filename = "resource.pdf"
-        try:
-            ingested_path = ingestion.ingest_resource(resource_url, filename)
-            print(f"Resource ingested at: {ingested_path}")
-        except ValueError as e:
-            print(e)
+if __name__ == '__main__':
+    ki = KnowledgeIngestion()
+    sources = [
+        {'url': 'https://www.un.org/en/about-us', 'content': 'United Nations content...'},
+        {'url': 'https://www.unknownsource.com', 'content': 'Unknown source content...'}
+    ]
+    ingested = ki.ingest_knowledge(sources)
+    print(ingested)
