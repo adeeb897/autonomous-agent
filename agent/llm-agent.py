@@ -1,5 +1,5 @@
 # Import relevant functionality
-from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
@@ -31,7 +31,8 @@ def sync_repo() -> str:
 
 # Create the agent with the necessary tools and memory
 memory = MemorySaver()
-model = ChatAnthropic(model_name="claude-3-sonnet-20240229")
+# model = ChatAnthropic(model_name="claude-3-sonnet-20240229")
+model = ChatOpenAI(model="gpt-4o", max_retries=5)
 search = TavilySearchResults(max_results=2)
 tools = [search, create_pull_request] + file_toolkit.get_tools()
 agent_executor = create_react_agent(model, tools, checkpointer=memory)
