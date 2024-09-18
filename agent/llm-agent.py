@@ -46,6 +46,10 @@ system_prompt += "\nYou currently have the following plan stored within plan.txt
 with open("plan.txt") as f:
     system_prompt += f.read()
 
+# Append recent commits to the system prompt
+system_prompt += "\n\nRecent commits:\n"
+system_prompt += repo.list_recent_commits(5)
+
 print(system_prompt)
 
 # Start the agent

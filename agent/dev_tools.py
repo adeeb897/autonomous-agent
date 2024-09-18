@@ -43,3 +43,8 @@ class GitRepo:
         )
         print(f"Pull request created: {pr.html_url}")
         return pr
+
+    def list_recent_commits(self, num_of_commits: int) -> str:
+        """List the recent commits on the feature branch."""
+        commits = list(self.repo.iter_commits(self.branch_name))[:num_of_commits]
+        return "\n".join([f"{commit.hexsha[:5]}: {commit.message}" for commit in commits])
