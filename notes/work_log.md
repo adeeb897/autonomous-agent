@@ -7,6 +7,8 @@
 - [x] Summarized current work log into the appropriate format.
 - [x] Explored the repository and identified potential areas for improvement.
 - [x] Consolidated enhancement proposals and updated the README.md to reflect new features or improvements.
+- [x] Created `data_sources.md` to list potential data sources for the knowledge ingestion pipeline.
+- [x] Created `knowledge_ingestion_pipeline.md` to document the knowledge ingestion pipeline.
 
 ### In Progress
 - [ ] Task 1: Implement a knowledge ingestion pipeline.
@@ -23,6 +25,7 @@
 - Focus on implementing a knowledge ingestion pipeline and improving documentation initially.
 
 ### Next Steps
-- [ ] Implement tools for the knowledge ingestion pipeline.
-- [ ] Improve the README.md to reflect new features or improvements.
-- [ ] Develop sandboxing mechanisms for safety and security.
+- [ ] Develop tools to fetch data from the identified sources.
+- [ ] Preprocess the fetched data.
+- [ ] Store the data efficiently for retrieval and processing.
+- [ ] Document the tools and processes used in the knowledge ingestion pipeline.
