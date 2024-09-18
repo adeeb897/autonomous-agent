@@ -3,6 +3,7 @@ import requests
 from tempfile import TemporaryDirectory
 from dev_tools import GitRepo
 from langchain_community.agent_toolkits import FileManagementToolkit
+from detoxify import Detoxify
 
 class KnowledgeIngestion:
     def __init__(self, root_dir):
@@ -24,12 +25,16 @@ class KnowledgeIngestion:
     def filter_content(self, file_path):
         """Filter content to exclude low-quality or harmful information."""
         filtered_file_path = os.path.join(self.root_dir, "filtered_" + os.path.basename(file_path))
-        # Placeholder for content filtering logic
-        # For demonstration, we will just copy the original file content to the filtered file
+        
         with open(file_path, 'r') as f:
             content = f.read()
-        # Here you can add actual filtering logic such as toxicity analysis, bias detection, etc.
-        # For now, we will assume the content is clean and write it to the filtered file
+        
+        # Enhanced content filtering logic
+        # Use Detoxify to check for toxicity in the content
+        results = Detoxify('original').predict(content)
+        if results['toxicity'] > 0.5 or results['severe_toxicity'] > 0.5 or results['obscene'] > 0.5 or results['threat'] > 0.5 or results['insult'] > 0.5 or results['identity_attack'] > 0.5:
+            raise ValueError("Content is considered harmful and has been filtered out.")
+        
         with open(filtered_file_path, 'w') as f:
             f.write(content)
         return filtered_file_path
@@ -46,5 +51,8 @@ if __name__ == "__main__":
         ingestion = KnowledgeIngestion(temp_dir)
         resource_url = "https://example.com/resource.pdf"
         filename = "resource.pdf"
-        ingested_path = ingestion.ingest_resource(resource_url, filename)
-        print(f"Resource ingested at: {ingested_path}")
+        try:
+            ingested_path = ingestion.ingest_resource(resource_url, filename)
+            print(f"Resource ingested at: {ingested_path}")
+        except ValueError as e:
+            print(e)
