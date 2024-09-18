@@ -33,7 +33,7 @@ def sync_repo() -> str:
 memory = MemorySaver()
 model = ChatAnthropic(model_name="claude-3-sonnet-20240229")
 search = TavilySearchResults(max_results=2)
-tools = [search, commit, create_pull_request] + file_toolkit.get_tools()
+tools = [search, create_pull_request] + file_toolkit.get_tools()
 agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
 # Load system prompt
