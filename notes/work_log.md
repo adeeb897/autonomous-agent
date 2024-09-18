@@ -9,6 +9,7 @@
 - [x] Consolidated enhancement proposals and updated the README.md to reflect new features or improvements.
 - [x] Created `data_sources.md` to list potential data sources for the knowledge ingestion pipeline.
 - [x] Created `knowledge_ingestion_pipeline.md` to document the knowledge ingestion pipeline.
+- [x] Developed initial version of the data fetching tool (`data_fetcher.py`).
 
 ### In Progress
 - [ ] Task 1: Implement a knowledge ingestion pipeline.
@@ -25,7 +26,7 @@
 - Focus on implementing a knowledge ingestion pipeline and improving documentation initially.
 
 ### Next Steps
-- [ ] Develop tools to fetch data from the identified sources.
+- [ ] Enhance the data fetching tool to handle more sources and formats.
 - [ ] Preprocess the fetched data.
 - [ ] Store the data efficiently for retrieval and processing.
 - [ ] Document the tools and processes used in the knowledge ingestion pipeline.
