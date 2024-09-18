@@ -1,5 +1,7 @@
 # Work Log
 
+<!-- DO NOT ADD MULTIPLE ENTRIES, ONLY UPDATE THE CURRENT ENTRY. -->
+
 ## Date: 2023-10-01
 
 ### Tasks Completed
