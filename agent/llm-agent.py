@@ -17,14 +17,9 @@ repo = GitRepo(root_dir)
 print("Created temporary workspace at: ", root_dir)
 
 @tool
-def commit(message: str) -> str:
-    """Commit changes to the git repository with the given commit message."""
-    return repo.commit(message)
-
-@tool
-def create_pull_request(title: str, description: str) -> str:
-    """Create a pull request on GitHub with the given description and send it for review."""
-    return repo.create_pull_request(title, description)
+def create_pull_request(commit_msg: str, pr_title: str, pr_description: str) -> str:
+    """Commit changes to the workspace and create a GitHub pull request with the provided title/description."""
+    return repo.create_pull_request(commit_msg, pr_title, pr_description)
 
 
 # Create sync tool

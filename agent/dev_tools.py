@@ -20,25 +20,24 @@ class GitRepo:
         # Create a temporary feature branch
         self.repo.git.checkout("HEAD", b=branch_name)
 
-    # $ git commit -m <message>
-    def commit(self, commit_message: str) -> str:
-        """Commit changes to the git repository with the given commit message."""
-        self.repo.git.add(all=True)
-        # If there are no changes, return an error message
-        if not self.repo.index.diff(None):
-            return "No changes to commit! Please make some changes in the workspace and try again."
-        return self.repo.index.commit(f"{ai_gen_prefix} {commit_message}")
-
-    def create_pull_request(self, title: str, description: str) -> str:
+    def create_pull_request(self, commit_message: str, pr_title: str, pr_description: str) -> str:
         """Create a pull request on GitHub with the given description and send it for review."""
+
+        if not self.repo.index.diff(None):
+            return "No changes to commit! Please make some changes to the code using write_tool and try again."
+
+        # Add and commit all changes to the feature branch
+        self.repo.git.add(all=True)
+        self.repo.index.commit(f"{ai_gen_prefix} {commit_message}")
+
         origin = self.repo.remote(name='origin')
         origin.push(branch_name)
 
         # Create a pull request
         repo = self.github.get_repo(repo_name)
         pr = repo.create_pull(
-            title=f"{ai_gen_prefix} {title}",
-            body=f"{ai_gen_prefix} {description}",
+            title=f"{ai_gen_prefix} {pr_title}",
+            body=f"{ai_gen_prefix} {pr_description}",
             head=branch_name,
             base="main"
         )
