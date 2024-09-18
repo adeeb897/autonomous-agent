@@ -28,3 +28,22 @@ The knowledge ingestion pipeline is designed to fetch, preprocess, and store dat
 ### 4. Documentation
 
 - Document the entire process and tools used in this file.
+
+## Ingestion Mechanisms
+
+### Fetching Data from Text Files
+
+We have extended the `KnowledgeIngestion` class to include a method `fetch_text_file` for reading and filtering data from local text files. This method reads the content of the specified text file, filters it for harmful information using Detoxify, and returns the filtered content.
+
+```python
+class KnowledgeIngestion:
+    # Existing methods...
+
+    def fetch_text_file(self, file_path):
+        """Fetch and filter content from a local text file."""
+        if not os.path.isfile(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+        
+        filtered_path = self.filter_content(file_path)
+        return filtered_path
+```

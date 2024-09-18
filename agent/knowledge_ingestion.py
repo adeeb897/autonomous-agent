@@ -39,6 +39,14 @@ class KnowledgeIngestion:
             f.write(content)
         return filtered_file_path
 
+    def fetch_text_file(self, file_path):
+        """Fetch and filter content from a local text file."""
+        if not os.path.isfile(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+        
+        filtered_path = self.filter_content(file_path)
+        return filtered_path
+
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""
         file_path = self.fetch_resource(url, filename)
