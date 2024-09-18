@@ -1,0 +1,11 @@
+version: '3'
+services:
+  llm-agent:
+    build: .
+    container_name: llm-agent
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app
+    environment:
+      - NAME=World

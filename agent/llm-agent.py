@@ -19,14 +19,24 @@ print("Created temporary workspace at: ", root_dir)
 @tool
 def create_pull_request(commit_msg: str, pr_title: str, pr_description: str) -> str:
     """Commit changes to the workspace and create a GitHub pull request with the provided title/description."""
-    return repo.create_pull_request(commit_msg, pr_title, pr_description)
+    try:
+        result = repo.create_pull_request(commit_msg, pr_title, pr_description)
+        if result == "No changes detected":
+            return "Error: No changes detected. Ensure you have made changes before creating a pull request."
+        return result
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 # Create sync tool
 @tool
 def sync_repo() -> str:
     """Stop the agent and sync it's functionality with the latest changes. Can be triggered manually or automatically after the agent terminates."""
-    return "Success"
+    try:
+        result = repo.sync()
+        return result
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 # Create the agent with the necessary tools and memory
