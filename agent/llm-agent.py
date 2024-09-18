@@ -43,13 +43,9 @@ with open("agent/prompt/system_prompt.txt") as f:
     system_prompt = f.read()
 
 # Load the agent's stored plan
-system_prompt += "\nYou currently have the following plan stored within plan.txt:\n"
-with open("plan.txt") as f:
+system_prompt += "\nYour current personal Work Log is as follows:\n"
+with open("notes/work_log.md") as f:
     system_prompt += f.read()
-
-# Append recent commits to the system prompt
-system_prompt += "\n\nRecent commits:\n"
-system_prompt += repo.list_recent_commits(5)
 
 print(system_prompt)
 
