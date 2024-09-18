@@ -23,8 +23,9 @@ class GitRepo:
     def create_pull_request(self, commit_message: str, pr_title: str, pr_description: str) -> str:
         """Create a pull request on GitHub with the given description and send it for review."""
 
-        if not self.repo.index.diff(None):
-            return "No changes to commit! Please make some changes to the code using write_tool and try again."
+        # If there are no unstaged changes, return an error message
+        if not self.repo.is_dirty():
+            return "No changes to commit! Please make some changes to the code using write_tool and try again."       
 
         # Add and commit all changes to the feature branch
         self.repo.git.add(all=True)
