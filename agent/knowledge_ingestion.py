@@ -23,8 +23,16 @@ class KnowledgeIngestion:
 
     def filter_content(self, file_path):
         """Filter content to exclude low-quality or harmful information."""
-        # Placeholder for content filtering logic (e.g., toxicity analysis, bias detection)
-        return file_path
+        filtered_file_path = os.path.join(self.root_dir, "filtered_" + os.path.basename(file_path))
+        # Placeholder for content filtering logic
+        # For demonstration, we will just copy the original file content to the filtered file
+        with open(file_path, 'r') as f:
+            content = f.read()
+        # Here you can add actual filtering logic such as toxicity analysis, bias detection, etc.
+        # For now, we will assume the content is clean and write it to the filtered file
+        with open(filtered_file_path, 'w') as f:
+            f.write(content)
+        return filtered_file_path
 
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""
