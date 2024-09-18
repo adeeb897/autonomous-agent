@@ -23,6 +23,7 @@ class GitRepo:
     # $ git commit -m <message>
     def commit(self, commit_message: str) -> str:
         """Commit changes to the git repository with the given commit message."""
+        self.repo.git.add(all=True)
         return self.repo.index.commit(f"{ai_gen_prefix} {commit_message}")
 
     def create_pull_request(self, title: str, description: str) -> str:
@@ -34,7 +35,7 @@ class GitRepo:
         repo = self.github.get_repo(repo_name)
         pr = repo.create_pull(
             title=f"{ai_gen_prefix} {title}",
-            body=description,
+            body=f"{ai_gen_prefix} {description}",
             head=branch_name,
             base="main"
         )
