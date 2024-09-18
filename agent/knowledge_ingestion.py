@@ -4,6 +4,8 @@ from tempfile import TemporaryDirectory
 from dev_tools import GitRepo
 from langchain_community.agent_toolkits import FileManagementToolkit
 from detoxify import Detoxify
+import langid  # Language identification library
+import PyPDF2  # PDF handling library
 
 class KnowledgeIngestion:
     def __init__(self, root_dir):
@@ -26,13 +28,26 @@ class KnowledgeIngestion:
         """Filter content to exclude low-quality or harmful information."""
         filtered_file_path = os.path.join(self.root_dir, "filtered_" + os.path.basename(file_path))
         
-        with open(file_path, 'r') as f:
-            content = f.read()
+        # Check if the file is a PDF and extract text
+        if file_path.endswith('.pdf'):
+            with open(file_path, 'rb') as f:
+                reader = PyPDF2.PdfFileReader(f)
+                content = ""
+                for page in range(reader.numPages):
+                    content += reader.getPage(page).extract_text()
+        else:
+            with open(file_path, 'r') as f:
+                content = f.read()
+        
+        # Language check
+        lang, _ = langid.classify(content)
+        if lang != 'en':
+            raise ValueError("Content is not in English and has been filtered out.")
         
         # Enhanced content filtering logic
         # Use Detoxify to check for toxicity in the content
         results = Detoxify('original').predict(content)
-        if results['toxicity'] > 0.5 or results['severe_toxicity'] > 0.5 or results['obscene'] > 0.5 or results['threat'] > 0.5 or results['insult'] > 0.5 or results['identity_attack'] > 0.5:
+        if any(results[key] > 0.5 for key in results):
             raise ValueError("Content is considered harmful and has been filtered out.")
         
         with open(filtered_file_path, 'w') as f:
