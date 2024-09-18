@@ -31,7 +31,7 @@ class GitRepo:
         origin.push(branch_name)
 
         # Create a pull request
-        repo = self.github.get_repo(self.repo_name)
+        repo = self.github.get_repo(repo_name)
         pr = repo.create_pull(
             title=f"{ai_gen_prefix} {title}",
             body=description,
