@@ -46,6 +46,43 @@ To start running the agent execute the following:
 python ./agent/llm-agent.py
 ```
 
+## Enhancements and Proposals
+
+### 1. Implement a Sandboxed Environment
+- **Objective**: Ensure the agent operates within controlled confines to prevent unintended actions.
+- **Steps**:
+  - Research Docker and other containerization tools.
+  - Implement a sandboxing technique suitable for the agent’s operations.
+  - Test the sandboxed environment to ensure it isolates the agent effectively.
+
+### 2. Develop the Knowledge Ingestion Pipeline
+- **Objective**: Automate the process of fetching, filtering, and ingesting educational resources.
+- **Steps**:
+  - Identify and evaluate trusted educational sources.
+  - Create tools to fetch and preprocess these resources.
+  - Implement automated content filtering (toxicity analysis, bias detection).
+
+### 3. Enable Safe Knowledge Querying
+- **Objective**: Allow the agent to query the expanded knowledge base safely.
+- **Steps**:
+  - Develop mechanisms for read-only queries.
+  - Ensure separation from the underlying model weights.
+  - Test the querying mechanisms for safety and reliability.
+
+### 4. Strengthen Ethical and Safety Checks
+- **Objective**: Ensure all processes align with ethical guidelines and safety constraints.
+- **Steps**:
+  - Integrate ethical checks throughout the knowledge ingestion and querying processes.
+  - Regularly test and validate these checks.
+  - Update ethical guidelines as necessary.
+
+### 5. Establish Regular Human Oversight
+- **Objective**: Maintain human oversight to review significant changes and new integrations.
+- **Steps**:
+  - Generate usage examples from the new knowledge base.
+  - Submit these examples for human review.
+  - Use the pull request workflow for approval.
+
 ## Known Issues
 
 Depending on which model is being used, the agent sometimes fails to recognize that it needs to create a commit / pull request before the loop ends.
