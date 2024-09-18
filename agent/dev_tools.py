@@ -37,7 +37,7 @@ class GitRepo:
         repo = self.github.get_repo(repo_name)
         pr = repo.create_pull(
             title=f"{ai_gen_prefix} {pr_title}",
-            body=f"{ai_gen_prefix} {pr_description}",
+            body=f"{ai_gen_prefix}\n {pr_description}",
             head=self.branch_name,
             base="main"
         )
