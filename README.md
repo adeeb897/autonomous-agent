@@ -19,3 +19,7 @@ To start running the agent execute the following:
 ```
 python ./agent/llm-agent.py
 ```
+
+## Known Issues
+
+Depending on which model is being used, the agent sometimes fails to recognize that it needs to create a commit / pull request before the loop ends.

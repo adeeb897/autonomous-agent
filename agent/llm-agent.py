@@ -22,9 +22,9 @@ def commit(message: str) -> str:
     return repo.commit(message)
 
 @tool
-def create_pull_request(description: str) -> str:
+def create_pull_request(title: str, description: str) -> str:
     """Create a pull request on GitHub with the given description and send it for review."""
-    return repo.create_pull_request(description)
+    return repo.create_pull_request(title, description)
 
 
 # Create sync tool
