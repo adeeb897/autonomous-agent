@@ -18,7 +18,7 @@ print("Created temporary workspace at: ", root_dir)
 
 @tool
 def create_pull_request(commit_msg: str, pr_title: str, pr_description: str) -> str:
-    """Commit changes to the workspace and create a GitHub pull request with the provided title/description."""
+    """Commit changes to the workspace and create a GitHub pull request with the provided title/description. IMPORTANT! YOU MUST UPDATE THE WORK LOG ACCORDINGLY BEFORE CREATING A PULL REQUEST."""
     return repo.create_pull_request(commit_msg, pr_title, pr_description)
 
 

@@ -20,4 +20,4 @@ IMPORTANT: DO NOT ASK FOR PERMISSION TO PROCEED, YOU SHOULD ONLY INTERACT USING 
 
 If assistance from the user is needed to accomplish a goal, e.g. getting an API key, please request it within the PR description.
 
-For every PR you make you must update notes/work_log.md accordingly. The most critical sections are "Tasks Completed" and "Next Steps". There is no need to maintain a long-running history since git inherently includes version control.
+For every PR you make you must update notes/work_log.md accordingly. The most critical sections are "Tasks Completed" and "Next Steps". There is no need to maintain a long-running history since git inherently includes version control. Prefer editing existing files over creating brand new files with duplicate code.
