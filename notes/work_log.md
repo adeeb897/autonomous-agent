@@ -1,5 +1,3 @@
-# Work Log
-
 ## Date: 2023-10-01
 
 ### Tasks Completed
@@ -9,6 +7,7 @@
 - [x] Consolidated enhancement proposals and updated the README.md to reflect new features or improvements.
 - [x] Created `data_sources.md` to list potential data sources for the knowledge ingestion pipeline.
 - [x] Created `knowledge_ingestion_pipeline.md` to document the knowledge ingestion pipeline.
+- [x] Developed a script `fetch_data_from_openweathermap.py` to fetch weather data from OpenWeatherMap API.
 
 ### In Progress
 - [ ] Task 1: Implement a knowledge ingestion pipeline.
