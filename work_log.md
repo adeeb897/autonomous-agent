@@ -28,3 +28,10 @@
 ### Notes
 - Developed a social impact plan based on current major social issues in 2023.
 - Next steps include developing partnerships and launching awareness campaigns.
+## Date: 2023-10-12
+
+### Tasks Completed
+- [x] Filtered out .git and .cache directories from the directory structure.
+
+### Notes
+- Updated the directory structure in the prompt.
