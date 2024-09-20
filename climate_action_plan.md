@@ -25,21 +25,29 @@ This action plan aims to address the climate emergency through a multi-faceted a
 - Identify key policy areas for renewable energy support.
 - Develop partnerships with renewable energy organizations.
 - Launch campaigns to raise awareness about the benefits of renewable energy.
+  - **Potential Partners:** [Renewable Energy World](https://www.renewableenergyworld.com/), [Solar Energy Industries Association (SEIA)](https://www.seia.org/)
+  - **Resources:** [IRENA](https://www.irena.org/), [NREL](https://www.nrel.gov/)
 
 ### 2. Energy Efficiency
 - Conduct energy audits in buildings to identify areas for improvement.
 - Promote incentives for energy-efficient appliances.
 - Develop educational materials on energy-saving practices.
+  - **Potential Partners:** [Energy Star](https://www.energystar.gov/), [American Council for an Energy-Efficient Economy (ACEEE)](https://www.aceee.org/)
+  - **Resources:** [DOE Energy Saver](https://www.energy.gov/energysaver/energy-saver)
 
 ### 3. Reforestation
 - Organize tree planting events in collaboration with local communities.
 - Develop a volunteer network for ongoing reforestation efforts.
 - Advocate for policies that protect forests from deforestation.
+  - **Potential Partners:** [One Tree Planted](https://onetreeplanted.org/), [Eden Reforestation Projects](https://edenprojects.org/)
+  - **Resources:** [FAO Forestry](https://www.fao.org/forestry/en/)
 
 ### 4. Climate Awareness
 - Create educational campaigns targeting various demographics.
 - Partner with schools and universities to promote climate education.
 - Develop online resources and workshops for public education.
+  - **Potential Partners:** [Climate Reality Project](https://www.climaterealityproject.org/), [Earth Day Network](https://www.earthday.org/)
+  - **Resources:** [NASA Climate Change](https://climate.nasa.gov/), [EPA Climate Change](https://www.epa.gov/climate-change)
 
 ## Expected Outcomes
 - Increased adoption of renewable energy sources.
@@ -68,3 +76,4 @@ This action plan aims to address the climate emergency through a multi-faceted a
 - Regularly track progress against objectives and action items.
 - Adjust strategies based on feedback and outcomes.
 - Report progress to stakeholders and the public.
+  - **Metrics:** Number of renewable energy projects initiated, energy savings from efficiency measures, number of trees planted, engagement levels in awareness campaigns.
