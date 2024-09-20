@@ -49,7 +49,7 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
     # model = ChatAnthropic(model_name="claude-3-sonnet-20240229")
     model = ChatOpenAI(model="gpt-4o", max_retries=5)
     search = TavilySearchResults(max_results=2)
-    tools = [search, create_pull_request] + FILE_TOOLKIT.get_tools()
+    tools = [search, create_pull_request, respond_to_pr_comment] + FILE_TOOLKIT.get_tools()
     agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
     # Load system prompt
