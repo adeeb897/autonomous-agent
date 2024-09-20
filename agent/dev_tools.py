@@ -105,7 +105,9 @@ class GitRepo:
                     for comment in comments:
                         print(f'\nComment by {comment.user.login}: "{comment.body}"')
                         comment_block += (f"Comment by {comment.user.login} " +
-                            f"(id={comment.id}, path={comment.path}, position={comment.position}): " +
+                            f"(id={comment.id}, " +
+                            f"path={comment.path}, " +
+                            f"position={comment.position}): " +
                             f'"{comment.body}"\n')
                     return ("The below comments were received. " +
                         "Please reply with the respond_to_pr_comment tool.\n" +
@@ -122,7 +124,15 @@ class GitRepo:
                 "No pull request is currently open. Please create a pull request first."
             )
         try:
-            top_level_comment = self.current_pr.get_comment(comment_id)
+            # Get comment object from the comment ID
+            all_comments = self.current_pr.get_comments()
+            top_level_comment = None
+            for comment in all_comments:
+                if comment.id == comment_id:
+                    top_level_comment = comment
+                    break
+            if top_level_comment is None:
+                return "Failed to find the comment with the given ID."
             commit = None
             for c in self.current_pr.get_commits():
                 if c.sha == top_level_comment.commit_id:
