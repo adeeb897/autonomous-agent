@@ -24,7 +24,7 @@ This document provides research and implementation details for sandboxing the ag
      WORKDIR /app
      COPY . /app
      RUN pip install -r requirements.txt
-     CMD ["python", "./agent/llm-agent.py"]
+     CMD ["python", "./agent/llm_agent.py"]
      ```
 
 3. **Build and Run the Docker Container**

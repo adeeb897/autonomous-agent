@@ -43,7 +43,7 @@ TODO: Isolate the agent to a sandboxed environment.
 To start running the agent execute the following:
 
 ```
-python ./agent/llm-agent.py
+python ./agent/llm_agent.py
 ```
 
 ## Enhancements and Proposals
@@ -92,7 +92,7 @@ Depending on which model is being used, the agent sometimes fails to recognize t
 ### Running the Agent
 To start the agent, run:
 ```
-python ./agent/llm-agent.py
+python ./agent/llm_agent.py
 ```
 
 ### Common Usage Scenarios
