@@ -8,7 +8,7 @@
 - [x] Conducted research on current societal issues in 2023.
 
 ### In Progress
-- [ ] Task 1: Select a primary goal and develop a detailed short-term plan on how to achieve it.
+- [ ] Task 1: Select a primary goal based on highest ROI and rooted in data. Develop a detailed short-term plan on how to achieve it.
 - [ ] Task 2: Implement a knowledge ingestion pipeline.
 - [ ] Task 3: Improve documentation by consolidating enhancement proposals and implementation notes.
 - [ ] Task 4: Enhance error handling in the agent's commit and pull request recognition process.
