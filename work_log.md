@@ -1,9 +1,7 @@
 ## Date: 2023-10-10
 
 ### Tasks Completed
-- [x] Listed current directory structure to aid in preventing note/code duplication.
-- [x] Updated system_prompt.txt to include a placeholder for the directory structure.
-- [x] Modified llm_agent.py to inject the actual directory structure into the system prompt.
+- [x] Created a test file to validate the comment response logic in a PR workflow.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.
@@ -28,3 +26,4 @@
 ### Notes
 - Developed a social impact plan based on current major social issues in 2023.
 - Next steps include developing partnerships and launching awareness campaigns.
+- Created a test file for validating PR comment response logic.
