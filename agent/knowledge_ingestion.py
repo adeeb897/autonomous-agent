@@ -26,8 +26,7 @@ class KnowledgeIngestion:
             with open(file_path, "wb") as f:
                 f.write(response.content)
             return file_path
-        else:
-            raise RuntimeError(f"Failed to fetch resource from {url}")
+        raise RuntimeError(f"Failed to fetch resource from {url}")
 
     def filter_content(self, file_path):
         """Filter content to exclude low-quality or harmful information."""
@@ -41,14 +40,12 @@ class KnowledgeIngestion:
         # Enhanced content filtering logic
         # Use Detoxify to check for toxicity in the content
         results = Detoxify("original").predict(content)
-        if (
-            results["toxicity"] > 0.5
-            or results["severe_toxicity"] > 0.5
-            or results["obscene"] > 0.5
-            or results["threat"] > 0.5
-            or results["insult"] > 0.5
-            or results["identity_attack"] > 0.5
-        ):
+        is_toxic = (
+            results["toxicity"] > 0.5 or results["severe_toxicity"] > 0.5 or 
+            results["obscene"] > 0.5 or results["threat"] > 0.5 or 
+            results["insult"] > 0.5 or results["identity_attack"] > 0.5
+        )
+        if is_toxic:
             raise ValueError("Content is considered harmful and has been filtered out.")
 
         with open(filtered_file_path, "w", encoding="utf-8") as f:
