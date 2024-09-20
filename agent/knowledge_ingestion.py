@@ -41,8 +41,8 @@ class KnowledgeIngestion:
         # Use Detoxify to check for toxicity in the content
         results = Detoxify("original").predict(content)
         is_toxic = (
-            results["toxicity"] > 0.5 or results["severe_toxicity"] > 0.5 or 
-            results["obscene"] > 0.5 or results["threat"] > 0.5 or 
+            results["toxicity"] > 0.5 or results["severe_toxicity"] > 0.5 or
+            results["obscene"] > 0.5 or results["threat"] > 0.5 or
             results["insult"] > 0.5 or results["identity_attack"] > 0.5
         )
         if is_toxic:
