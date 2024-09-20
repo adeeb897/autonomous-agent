@@ -14,7 +14,7 @@ from dev_tools import GitRepo
 
 with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
     # Create developer workspace for the agent and tools
-    WORKSPACE = str(TEMP_DIR.name)
+    WORKSPACE = str(TEMP_DIR)
     FILE_TOOLKIT = FileManagementToolkit(root_dir=WORKSPACE)
     REPO = GitRepo(WORKSPACE)
     print("Created temporary workspace at: ", WORKSPACE)
