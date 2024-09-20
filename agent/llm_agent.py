@@ -38,6 +38,11 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         """Commit changes to the workspace and create a pull request with the provided info.
         IMPORTANT! YOU MUST UPDATE THE WORK LOG ACCORDINGLY BEFORE CREATING A PULL REQUEST."""
         return REPO.create_pull_request(commit_msg, pr_title, pr_description, args.user_prompt)
+    
+    @tool
+    def respond_to_pr_comment(comment_id: str, response: str) -> str:
+        """Respond to a pull request comment with the provided response."""
+        return REPO.respond_to_pr_comment(comment_id, response)
 
     # Create the agent with the necessary tools and memory
     memory = MemorySaver()
@@ -67,7 +72,7 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
 
     # Start the agent
     for chunk in agent_executor.stream(
-        {"messages": [HumanMessage(content=SYSTEM_PROMPT)]}, config={"thread_id": "Agent"}
+        {"messages": [HumanMessage(content=SYSTEM_PROMPT)]}, config={"thread_id": "Agent", "recursion_limit": 50}
     ):
         # For AIMessages, print the content and/or tool call
         if "agent" in chunk:
