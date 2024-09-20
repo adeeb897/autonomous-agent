@@ -2,6 +2,8 @@
 
 ### Tasks Completed
 - [x] Created and populated notes/docker_resources.md with relevant resources for learning Docker basics and containerization tools.
+- [x] Conducted research on current societal issues and documented findings.
+- [x] Created a simple Dockerfile for sandboxing.
 
 ### In Progress
 - Task 1: Begin implementing climate emergency plan.
@@ -15,7 +17,7 @@
 
 - Task 2: Research containerization tools like Docker and start implementing a basic sandboxing environment.
   - [x] Study the documented resources on Docker basics and containerization tools.
-  - [ ] Create a simple Dockerfile to define a sandboxed environment.
+  - [x] Create a simple Dockerfile to define a sandboxed environment.
   - [ ] Test the Dockerfile to ensure it meets safety and isolation requirements.
 
 ### Blockers
@@ -25,3 +27,5 @@
 - The climate emergency plan focuses on renewable energy adoption, energy efficiency, reforestation, and climate awareness.
 - Identified potential partners and frameworks for collaboration.
 - Documented resources for learning Docker basics and containerization tools.
+- Conducted research on current societal issues and documented a detailed plan in notes/social_impact_plan.md.
+- Created a simple Dockerfile for sandboxing and saved it to the workspace.
