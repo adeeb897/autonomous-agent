@@ -128,8 +128,9 @@ class GitRepo:
             # Get comment object from the comment ID
             all_comments = self.current_pr.get_comments()
             top_level_comment = None
+            comment_id_int = int(comment_id)
             for comment in all_comments:
-                if comment.id == comment_id:
+                if comment.id == comment_id_int:
                     top_level_comment = comment
                     break
             if top_level_comment is None:
