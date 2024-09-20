@@ -26,14 +26,6 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         return REPO.create_pull_request(commit_msg, pr_title, pr_description)
 
 
-    # Create sync tool
-    @tool
-    def sync_repo() -> str:
-        """Stop the agent and sync it's functionality with the latest changes.
-        Can be triggered manually or automatically after the agent terminates."""
-        return "Success"
-
-
     # Create the agent with the necessary tools and memory
     memory = MemorySaver()
     # model = ChatAnthropic(model_name="claude-3-sonnet-20240229")
@@ -47,13 +39,13 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
     with open("agent/prompt/system_prompt.txt", encoding="utf-8") as f:
         SYSTEM_PROMPT = f.read()
 
-    # Load the agent's notes
-    SYSTEM_PROMPT += "\nYour current enhancement proposal is as follows:\n"
-    with open("notes/enhancement_proposal.md", encoding="utf-8") as f:
-        SYSTEM_PROMPT += f.read()
-    SYSTEM_PROMPT += "\nYour current personal Work Log is as follows:\n"
-    with open("notes/work_log.md", encoding="utf-8") as f:
-        SYSTEM_PROMPT += f.read()
+    # Inject the agent's notes as needed
+    while SYSTEM_PROMPT.find("{{") != -1:
+        start = SYSTEM_PROMPT.find("{{")
+        end = SYSTEM_PROMPT.find("}}", start)
+        file_path = SYSTEM_PROMPT[start+2:end]
+        with open(file_path, encoding="utf-8") as f:
+            SYSTEM_PROMPT = SYSTEM_PROMPT[:start] + f.read() + SYSTEM_PROMPT[end+2:]
 
     print(SYSTEM_PROMPT)
 
