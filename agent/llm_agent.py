@@ -104,3 +104,6 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
             print(f"Tool response: {chunk["tools"]["messages"][0].content}")
 
         print("----")
+# Function to generate directory tree
+
+def generate_directory_tree(start_path='.'):
