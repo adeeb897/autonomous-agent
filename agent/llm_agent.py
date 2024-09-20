@@ -73,5 +73,3 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
             print(f"Tool response: {chunk["tools"]["messages"][0].content}")
 
         print("----")
-
-TEMP_DIR.cleanup()
