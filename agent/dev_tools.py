@@ -14,7 +14,8 @@ AI_GEN_PREFIX = "[AI Generated]"
 class GitRepo:
     """A class to manage a Git repository and create pull requests on GitHub."""
 
-    def __init__(self, repo_dir):
+    def __init__(self, repo_dir, dry_run=False):
+        self.dry_run = dry_run
         try:
             self.repo = Repo.clone_from(REPO_URL, repo_dir)
             # Initialize GitHub API using the access token environment variable
@@ -30,7 +31,7 @@ class GitRepo:
             raise RuntimeError(f"Failed to authenticate with GitHub: {e}") from e
 
     def create_pull_request(
-        self, commit_message: str, pr_title: str, pr_description: str
+        self, commit_message: str, pr_title: str, pr_description: str, user_prompt: str = None
     ) -> str:
         """Create a pull request on GitHub with the given description and send it for review."""
 
@@ -50,11 +51,15 @@ class GitRepo:
             raise RuntimeError(f"Failed during git operations: {e}") from e
 
         try:
+            if self.dry_run:
+                print("Dry run mode enabled. Skipping pull request creation.")
+                return "Dry run mode enabled. Skipping pull request creation."
+            u_p = f" The user prompt for this change was: \"{user_prompt}\"" if user_prompt and user_prompt != "" else ""
             # Create a pull request
             repo = self.github.get_repo(REPO_NAME)
             pr = repo.create_pull(
                 title=f"{AI_GEN_PREFIX} {pr_title}",
-                body=f"{AI_GEN_PREFIX}\n {pr_description}",
+                body=f"{AI_GEN_PREFIX}{u_p}\n {pr_description}",
                 head=self.branch_name,
                 base="main",
             )

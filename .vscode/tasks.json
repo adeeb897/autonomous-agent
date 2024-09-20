@@ -12,6 +12,23 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Start the Agent with a custom prompt",
+            "type": "shell",
+            "command": "python agent/llm_agent.py --custom-prompt ${input:custom-prompt}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
         }
-    ]
+    ],
+    "inputs": [
+    {
+        "id": "custom-prompt",
+        "type": "promptString",
+        "description": "Enter a custom prompt for the agent",
+        "default": ""
+    }
+  ]
 }
