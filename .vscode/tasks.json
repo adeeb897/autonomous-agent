@@ -21,6 +21,15 @@
             "group": {
                 "kind": "build"
             }
+        },
+        {
+            "label": "Start the Agent in dry-run mode",
+            "type": "shell",
+            "command": "python agent/llm_agent.py --dryrun",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build"
+            }
         }
     ],
     "inputs": [

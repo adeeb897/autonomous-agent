@@ -19,6 +19,9 @@ def generate_directory_tree(start_path='.'):
     """Generate a directory tree starting from the provided path."""
     tree = ""
     for root, _, files in os.walk(start_path):
+        # Filter out irrelevant files and directories
+        if ".git" in root or "__pycache__" in root or ".cache" in root:
+            continue
         level = root.replace(start_path, '').count(os.sep)
         indent = ' ' * 4 * (level)
         tree += f"{indent}{os.path.basename(root)}/\n"
