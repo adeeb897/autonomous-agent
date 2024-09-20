@@ -1,9 +1,9 @@
 ## Date: 2023-10-10
 
 ### Tasks Completed
-- [x] Documented potential partners for renewable energy, mental health support, and humanitarian aid in notes/potential_partners.md.
-- [x] Created initial drafts for awareness and educational campaigns in notes/campaign_drafts.md.
-- [x] Organized notes directory into subdirectories.
+- [x] Listed current directory structure to aid in preventing note/code duplication.
+- [x] Updated system_prompt.txt to include a placeholder for the directory structure.
+- [x] Modified llm_agent.py to inject the actual directory structure into the system prompt.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.
@@ -26,7 +26,5 @@
 - None at this moment.
 
 ### Notes
-- Documented potential partners and created initial campaign drafts. Next steps include reaching out to partners and launching the campaigns.
 - Developed a social impact plan based on current major social issues in 2023.
 - Next steps include developing partnerships and launching awareness campaigns.
-- Organized notes directory into subdirectories for better clarity and management.
