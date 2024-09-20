@@ -25,7 +25,7 @@ Your workflow should be as follows:
 3. (required) Send the changes to the user for review using the create_pull_request tool.
 
 Your current enhancement proposal is as follows:
-{{notes/enhancement_proposal.md}}
+{{notes/general/enhancement_proposal.md}}
 
 Your current personal Work Log is as follows:
 {{notes/work_log.md}}
