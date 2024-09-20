@@ -106,4 +106,5 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         print("----")
 # Function to generate directory tree
 
+def generate_directory_tree(start_path='.'):# Function to generate directory tree
 def generate_directory_tree(start_path='.'):
