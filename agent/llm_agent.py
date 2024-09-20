@@ -15,16 +15,16 @@ from langgraph.prebuilt import create_react_agent
 from dev_tools import GitRepo
 
 # Function to generate directory tree
-
-def generate_directory_tree(start_path='.'): 
-    tree = "" 
-    for root, dirs, files in os.walk(start_path): 
-        level = root.replace(start_path, '').count(os.sep) 
-        indent = ' ' * 4 * (level) 
-        tree += f"{indent}{os.path.basename(root)}/\n" 
-        subindent = ' ' * 4 * (level + 1) 
-        for f in files: 
-            tree += f"{subindent}{f}\n" 
+def generate_directory_tree(start_path='.'):
+    """Generate a directory tree starting from the provided path."""
+    tree = ""
+    for root, _, files in os.walk(start_path):
+        level = root.replace(start_path, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        tree += f"{indent}{os.path.basename(root)}/\n"
+        subindent = ' ' * 4 * (level + 1)
+        for fi in files:
+            tree += f"{subindent}{fi}\n"
     return tree
 
 # Parse command line arguments
@@ -54,7 +54,7 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         """Commit changes to the workspace and create a pull request with the provided info.
         IMPORTANT! YOU MUST UPDATE THE WORK LOG ACCORDINGLY BEFORE CREATING A PULL REQUEST."""
         return REPO.create_pull_request(commit_msg, pr_title, pr_description, args.user_prompt)
-    
+ 
     @tool
     def respond_to_pr_comment(comment_id: str, response: str) -> str:
         """Respond to a pull request comment with the provided response."""
@@ -72,6 +72,8 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
     with open("agent/prompt/system_prompt.txt", encoding="utf-8") as f:
         SYSTEM_PROMPT = f.read()
 
+    SYSTEM_PROMPT = SYSTEM_PROMPT.replace("{{DIRECTORY_STRUCTURE}}", directory_tree)
+
     # Inject the agent's notes as needed
     while SYSTEM_PROMPT.find("{{") != -1:
         start = SYSTEM_PROMPT.find("{{")
@@ -80,8 +82,6 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         with open(file_path, encoding="utf-8") as f:
             SYSTEM_PROMPT = SYSTEM_PROMPT[:start] + f.read() + SYSTEM_PROMPT[end+2:]
 
-    SYSTEM_PROMPT = SYSTEM_PROMPT.replace("{{DIRECTORY_STRUCTURE}}", directory_tree)
-
     if args.user_prompt and args.user_prompt != "":
         SYSTEM_PROMPT += f"\nThe user prompt is: {args.user_prompt}\n"
 
@@ -89,7 +89,8 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
 
     # Start the agent
     for chunk in agent_executor.stream(
-        {"messages": [HumanMessage(content=SYSTEM_PROMPT)]}, config={"thread_id": "Agent", "recursion_limit": 50}
+        {"messages": [HumanMessage(content=SYSTEM_PROMPT)]},
+        config={"thread_id": "Agent", "recursion_limit": 50}
     ):
         # For AIMessages, print the content and/or tool call
         if "agent" in chunk:

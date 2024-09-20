@@ -124,6 +124,7 @@ class GitRepo:
                 "No pull request is currently open. Please create a pull request first."
             )
         try:
+            print(f"Responding to comment {comment_id} with: {response}")
             # Get comment object from the comment ID
             all_comments = self.current_pr.get_comments()
             top_level_comment = None
