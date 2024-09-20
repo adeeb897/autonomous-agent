@@ -11,7 +11,6 @@ BRANCH_NAME_PREFIX = "feature-branch"
 GITHUB_TOKEN_VAR = "GITHUB_ACCESS_TOKEN"
 AI_GEN_PREFIX = "[AI Generated]"
 
-
 class GitRepo:
     """A class to manage a Git repository and create pull requests on GitHub."""
 
