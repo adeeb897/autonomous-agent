@@ -1,8 +1,8 @@
-## Date: 2023-10-08
+## Date: 2023-10-09
 
 ### Tasks Completed
-- [x] Created partnership proposals for renewable energy organizations and documented them in notes/partnership_proposals.md.
-- [x] Developed strategies for launching awareness campaigns for renewable energy and documented them in notes/awareness_campaigns.md.
+- [x] Researched current major social issues in 2023.
+- [x] Documented findings and proposed a social impact plan in notes/social_impact_plan.md.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.
@@ -14,9 +14,16 @@
   - [ ] Create educational campaigns targeting various demographics.
 - Task 2: Test the Dockerfile to ensure it meets safety and isolation requirements.
 
+- Task 3: Implement the social impact plan.
+  - [ ] Develop partnerships with organizations for mental health support.
+  - [ ] Launch educational campaigns to address economic inequality.
+  - [ ] Collaborate with humanitarian organizations to support displaced populations.
+  - [ ] Align efforts with Sustainable Development Goals.
+  - [ ] Advocate for policies and practices to enhance safety and security.
+
 ### Blockers
 - None at this moment.
 
 ### Notes
-- Developed detailed proposals and strategies for partnerships and awareness campaigns for renewable energy.
-- Next steps include reaching out to potential partners and implementing the awareness campaigns.
+- Developed a social impact plan based on current major social issues in 2023.
+- Next steps include developing partnerships and launching awareness campaigns.
