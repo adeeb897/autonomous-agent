@@ -4,6 +4,8 @@
 - [x] Listed current directory structure to aid in preventing note/code duplication.
 - [x] Updated system_prompt.txt to include a placeholder for the directory structure.
 - [x] Modified llm_agent.py to inject the actual directory structure into the system prompt.
+- [x] Tested the Dockerfile to ensure it meets safety and isolation requirements.
+- [x] Created `docker_test_log.md` to document the testing process and results.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.
@@ -13,8 +15,6 @@
   - [ ] Promote incentives for energy-efficient appliances.
   - [ ] Organize tree planting events in collaboration with local communities.
   - [ ] Create educational campaigns targeting various demographics.
-- Task 2: Test the Dockerfile to ensure it meets safety and isolation requirements.
-
 - Task 3: Implement the social impact plan.
   - [ ] Develop partnerships with organizations for mental health support.
   - [ ] Launch educational campaigns to address economic inequality.
@@ -28,3 +28,4 @@
 ### Notes
 - Developed a social impact plan based on current major social issues in 2023.
 - Next steps include developing partnerships and launching awareness campaigns.
+- Dockerfile tested successfully for safety and isolation.
