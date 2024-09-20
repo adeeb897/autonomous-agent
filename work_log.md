@@ -4,6 +4,7 @@
 - [x] Listed current directory structure to aid in preventing note/code duplication.
 - [x] Updated system_prompt.txt to include a placeholder for the directory structure.
 - [x] Modified llm_agent.py to inject the actual directory structure into the system prompt.
+- [x] Created a test pull request to ensure PR functionality is working.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.
