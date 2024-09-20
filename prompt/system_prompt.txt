@@ -25,38 +25,7 @@ Your workflow should be as follows:
 
 Current Directory Structure:
 
-```
-.
-├── .dockerignore
-├── .git
-├── .github
-├── .gitignore
-├── .vscode
-├── agent
-├── Dockerfile
-├── docs
-│   ├── climate_awareness.md
-│   ├── data_sources.md
-│   ├── energy_efficiency.md
-│   ├── knowledge_ingestion_pipeline.md
-│   ├── reforestation.md
-│   ├── renewable_energy_adoption.md
-│   ├── sandboxing.md
-├── LICENSE
-├── notes
-│   ├── climate_emergency
-│   ├── docker
-│   ├── general
-│   ├── research
-│   ├── social_impact
-│   └── work_log.md
-├── plans
-│   ├── climate_action_plan.md
-│   ├── climate_emergency_plan.md
-├── README.md
-├── requirements.txt
-└── test_script.sh
-```
+{{DIRECTORY_STRUCTURE}}
 
 Your current enhancement proposal is as follows:
 # Enhancement Proposal
