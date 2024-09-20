@@ -1,15 +1,4 @@
-"""A module to manage a Git repository and create pull requests on GitHub."""
-
-from os import getenv
-from git import Repo, GitCommandError
-from github import Github, GithubException
-
-# Configure git repository
-REPO_NAME = "adeeb897/autonomous-agent"
-REPO_URL = f"https://github.com/{REPO_NAME}.git"
-BRANCH_NAME_PREFIX = "feature-branch"
-GITHUB_TOKEN_VAR = "GITHUB_ACCESS_TOKEN"
-AI_GEN_PREFIX = "[AI Generated]"
+import time
 
 class GitRepo:
     """A class to manage a Git repository and create pull requests on GitHub."""
@@ -64,7 +53,19 @@ class GitRepo:
                 base="main",
             )
             print(f"Pull request created: {pr.html_url}")
-            return pr
+
+            # Loop to check for comments or PR merge
+            while True:
+                pr.update()
+                if pr.merged:
+                    print("Pull request has been merged.")
+                    return "Pull request has been merged."
+                comments = pr.get_issue_comments()
+                for comment in comments:
+                    print(f"Comment by {comment.user.login}: {comment.body}")
+                    return f"Comment by {comment.user.login}: {comment.body}"
+                time.sleep(30)  # Wait for 30 seconds before checking again
+
         except GithubException as e:
             raise RuntimeError(f"Failed to create a pull request: {e}") from e
 
