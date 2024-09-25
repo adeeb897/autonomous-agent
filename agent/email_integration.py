@@ -1,5 +1,7 @@
 import sendgrid
 from sendgrid.helpers.mail import Mail, Email, To, Content
+import boto3
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 import os
 
 class SendGridEmailSender:
@@ -11,18 +13,12 @@ class SendGridEmailSender:
         to_email = To(to_email)
         content = Content("text/plain", content)
         mail = Mail(from_email, to_email, subject, content)
-        
+
         try:
             response = self.sg.send(mail)
             print(f"Email sent, status code: {response.status_code}")
         except Exception as e:
             print(f"Error sending email: {e}")
-
-# Usage example
-# email_sender = SendGridEmailSender()
-# email_sender.send_email("from@example.com", "to@example.com", "Subject", "Email content")
-import boto3
-from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 
 class SESEmailSender:
     def __init__(self):
@@ -44,6 +40,18 @@ class SESEmailSender:
         except Exception as e:
             print(f"Error sending email: {e}")
 
-# Usage example
-# ses_email_sender = SESEmailSender()
-# ses_email_sender.send_email("from@example.com", "to@example.com", "Subject", "Email content")
+def send_email(service, from_email, to_email, subject, content):
+    if service == "sendgrid":
+        email_sender = SendGridEmailSender()
+    elif service == "ses":
+        email_sender = SESEmailSender()
+    else:
+        raise ValueError("Unsupported email service. Choose 'sendgrid' or 'ses'.")
+
+    email_sender.send_email(from_email, to_email, subject, content)
+    log_email_sent(from_email, to_email, subject, content, service)
+
+def log_email_sent(from_email, to_email, subject, content, service):
+    # A function to log the email sent details
+    with open("email_log.txt", "a") as log_file:
+        log_file.write(f"Service: {service}, From: {from_email}, To: {to_email}, Subject: {subject}, Content: {content}\n")
