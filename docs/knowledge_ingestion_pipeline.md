@@ -1,30 +1,38 @@
 # Knowledge Ingestion Pipeline
 
 ## Overview
+The Knowledge Ingestion Pipeline is designed to fetch, filter, and ingest educational resources from various sources. The pipeline ensures that the content aligns with ethical principles and safety guidelines.
 
-The knowledge ingestion pipeline is designed to fetch, preprocess, and store data from various sources to facilitate knowledge acquisition and retrieval. The pipeline consists of the following steps:
+## Components
+1. **Fetching Resources**: The pipeline fetches data from specified sources using HTTP requests.
+2. **Content Filtering**: Filters content using automated methods like toxicity analysis and bias detection.
+3. **Ethical and Safety Checks**: Ensures the content complies with ethical guidelines and safety constraints.
 
-1. **Identify Data Sources**: Determine the types of data and sources we need to ingest (e.g., text files, APIs, databases).
-2. **Develop Ingestion Mechanism**: Create tools to fetch and preprocess data from these sources.
-3. **Data Storage**: Determine how and where to store the ingested data for efficient retrieval and processing.
-4. **Documentation**: Ensure all steps and tools are well-documented for future reference and transparency.
+## Implementation
+The pipeline is implemented in the `KnowledgeIngestionPipeline` class, which includes methods for fetching resources, filtering content, and checking for toxicity and bias.
 
-## Steps
+### Fetching Resources
+The `fetch_resources` method sends HTTP requests to the specified sources and retrieves the content.
 
-### 1. Identify Data Sources
+### Content Filtering
+The `filter_content` method filters out content that is toxic or biased using the `is_toxic` and `is_biased` methods.
 
-- List potential data sources in a file (`data_sources.md`).
+### Ethical and Safety Checks
+The `EthicalChecks` class provides methods to ensure the content complies with ethical guidelines and safety constraints.
 
-### 2. Develop Ingestion Mechanism
+## Usage
+```python
+from agent.knowledge_ingestion_pipeline import KnowledgeIngestionPipeline
 
-- Create tools to fetch data from each identified source.
-- Preprocess data to ensure consistency and usability.
+sources = ["http://example.com/resource1", "http://example.com/resource2"]
+pipeline = KnowledgeIngestionPipeline(sources)
 
-### 3. Data Storage
+resources = pipeline.fetch_resources()
+filtered_resources = pipeline.filter_content(resources)
+```
 
-- Decide on a storage format (e.g., JSON, CSV, database).
-- Implement storage mechanisms.
+## Testing
+Unit tests for the Knowledge Ingestion Pipeline and Ethical Checks are provided in the `tests` directory.
 
-### 4. Documentation
-
-- Document the entire process and tools used in this file.
+## Ethical Considerations
+The pipeline is designed to align with ethical principles and safety guidelines, ensuring that the ingested content is safe, unbiased, and complies with ethical standards.
