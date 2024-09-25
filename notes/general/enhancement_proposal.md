@@ -3,7 +3,7 @@
 ## Overview
 Based on the review of the current setup and documentation, the following enhancements are proposed:
 
-1. **Determine how to make a social impact**: Research current issues facing society and select one or more where we can most the impact quickly. Come up with a detailed plan on how to do so.
+1. **Determine how to make a social impact**: Research current issues facing society and select one or more where we can most impact quickly. Come up with a detailed plan on how to do so.
 
 2. **Implement a Sandboxed Environment**: Research and implement sandboxing techniques using Docker or other containerization tools to safely isolate the agent's operations.
 
@@ -12,3 +12,5 @@ Based on the review of the current setup and documentation, the following enhanc
 4. **Strengthen Ethical and Safety Checks**: Integrate robust ethical guidelines and safety constraints throughout the knowledge ingestion and querying processes. Regularly test and validate these mechanisms.
 
 5. **Establish Regular Human Oversight**: Set up a process for generating usage examples and submitting them for human review. Use the pull request workflow for approval of significant changes and new integrations.
+
+6. **Develop Outreach and Communication Tool**: Enable the AI agent to send emails, post on social media, and connect with partner organization APIs to execute planned initiatives. Ensure privacy, security, and compliance with relevant regulations.
