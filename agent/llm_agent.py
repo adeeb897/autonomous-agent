@@ -1,7 +1,3 @@
-"""
-This is the main agent file responsible for managing the agent's workspace, tools, and memory.
-"""
-
 import os
 from tempfile import TemporaryDirectory
 import argparse
@@ -13,21 +9,24 @@ from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from dev_tools import GitRepo
+from climate_data_api import ClimateDataAPI  # Import the ClimateDataAPI class
 
 # Function to generate directory tree
-def generate_directory_tree(start_path='.'):
-    """Generate a directory tree starting from the provided path."""
-    tree = ""
-    for root, _, files in os.walk(start_path):
-        # Filter out irrelevant files and directories
-        if ".git" in root or "__pycache__" in root or ".cache" in root:
-            continue
-        level = root.replace(start_path, '').count(os.sep)
-        indent = ' ' * 4 * (level)
-        tree += f"{indent}{os.path.basename(root)}/\n"
-        subindent = ' ' * 4 * (level + 1)
-        for fi in files:
-            tree += f"{subindent}{fi}\n"
+def generate_directory_tree(start_path='.'): 
+    """Generate a directory tree starting from the provided path.""" 
+    tree = "" " 
+    for root, _, files in os.walk(start_path): 
+        # Filter out irrelevant files and directories 
+        if ".git" in root or "__pycache__" in root or ".cache" in root: 
+            continue 
+        level = root.replace(start_path, '').count(os.sep) 
+        indent = ' ' * 4 * (level) 
+        tree += f"{indent}{os.path.basename(root)}/
+" 
+        subindent = ' ' * 4 * (level + 1) 
+        for fi in files: 
+            tree += f"{subindent}{fi}
+" 
     return tree
 
 # Parse command line arguments
@@ -63,11 +62,29 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         """Respond to a pull request comment with the provided response."""
         return REPO.respond_to_pr_comment(comment_id, response)
 
+    # Initialize ClimateDataAPI
+    climate_api = ClimateDataAPI()
+
+    @tool
+    def get_current_weather(location: str) -> dict:
+        """Fetch the current weather for a specific location."""
+        return climate_api.get_current_weather(location)
+
+    @tool
+    def get_forecast(location: str, days: int = 1) -> dict:
+        """Fetch the weather forecast for a specific location."""
+        return climate_api.get_forecast(location, days)
+
+    @tool
+    def get_historical_weather(location: str, date: str) -> dict:
+        """Fetch the historical weather data for a specific location and date."""
+        return climate_api.get_historical_weather(location, date)
+
     # Create the agent with the necessary tools and memory
     memory = MemorySaver()
     model = ChatOpenAI(model="gpt-4o", max_retries=5)
     search = TavilySearchResults(max_results=2)
-    tools = [search, create_pull_request, respond_to_pr_comment] + FILE_TOOLKIT.get_tools()
+    tools = [search, create_pull_request, respond_to_pr_comment, get_current_weather, get_forecast, get_historical_weather] + FILE_TOOLKIT.get_tools()
     agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
     # Load system prompt
