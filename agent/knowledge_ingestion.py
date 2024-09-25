@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 import requests
 from langchain_community.agent_toolkits import FileManagementToolkit
 from detoxify import Detoxify
+from textblob import TextBlob
 
 class KnowledgeIngestion:
     """A class to manage knowledge ingestion, including fetching and filtering content."""
@@ -38,19 +39,29 @@ class KnowledgeIngestion:
             content = f.read()
 
         # Enhanced content filtering logic
-        # Use Detoxify to check for toxicity in the content
-        results = Detoxify("original").predict(content)
-        is_toxic = (
-            results["toxicity"] > 0.5 or results["severe_toxicity"] > 0.5 or
-            results["obscene"] > 0.5 or results["threat"] > 0.5 or
-            results["insult"] > 0.5 or results["identity_attack"] > 0.5
-        )
-        if is_toxic:
+        if self.is_toxic(content) or self.is_biased(content):
             raise ValueError("Content is considered harmful and has been filtered out.")
 
         with open(filtered_file_path, "w", encoding="utf-8") as f:
             f.write(content)
         return filtered_file_path
+
+    @staticmethod
+    def is_toxic(text):
+        # Use Detoxify to check for toxicity in the content
+        results = Detoxify("original").predict(text)
+        is_toxic = (
+            results["toxicity"] > 0.5 or results["severe_toxicity"] > 0.5 or
+            results["obscene"] > 0.5 or results["threat"] > 0.5 or
+            results["insult"] > 0.5 or results["identity_attack"] > 0.5
+        )
+        return is_toxic
+
+    @staticmethod
+    def is_biased(text):
+        # Placeholder for bias detection
+        analysis = TextBlob(text)
+        return 'bias' in analysis.lower()
 
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""
