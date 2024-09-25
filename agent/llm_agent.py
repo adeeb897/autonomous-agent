@@ -4,6 +4,7 @@ This is the main agent file responsible for managing the agent's workspace, tool
 import os
 from tempfile import TemporaryDirectory
 import argparse
+from datetime import datetime
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI
 from langchain_community.agent_toolkits import FileManagementToolkit
@@ -51,6 +52,7 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
 
     # Inject the directory tree into system prompt
     directory_tree = generate_directory_tree()
+    current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     @tool
     def create_pull_request(commit_msg: str, pr_title: str, pr_description: str) -> str:
@@ -100,6 +102,7 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
         SYSTEM_PROMPT = f.read()
 
     SYSTEM_PROMPT = SYSTEM_PROMPT.replace("{{DIRECTORY_STRUCTURE}}", directory_tree)
+    SYSTEM_PROMPT = SYSTEM_PROMPT.replace("{{CURRENT_DATETIME}}", current_datetime)
 
     # Inject the agent's notes as needed
     while SYSTEM_PROMPT.find("{{") != -1:
