@@ -18,11 +18,17 @@ class AyrshareAPI:
             response = requests.post(url, headers=headers, json=data)
             if response.status_code == 200:
                 print(f"Post successful: {response.json()}")
+                log_social_media_post(content)
             else:
                 print(f"Failed to post: {response.status_code}, {response.text}")
         except Exception as e:
             print(f"Error posting to social media: {e}")
 
-# Usage example
-# ayrshare_api = AyrshareAPI()
-# ayrshare_api.post_social_media("Hello, this is a test post!")
+def log_social_media_post(content):
+    # A function to log the social media post details
+    with open("social_media_log.txt", "a") as log_file:
+        log_file.write(f"Content: {content}\n")
+
+def post_social_media(content):
+    ayrshare_api = AyrshareAPI()
+    ayrshare_api.post_social_media(content)
