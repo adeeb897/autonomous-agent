@@ -1,3 +1,6 @@
+"""
+This is the main agent file responsible for managing the agent's workspace, tools, and memory.
+"""
 import os
 from tempfile import TemporaryDirectory
 import argparse
@@ -12,21 +15,19 @@ from dev_tools import GitRepo
 from climate_data_api import ClimateDataAPI  # Import the ClimateDataAPI class
 
 # Function to generate directory tree
-def generate_directory_tree(start_path='.'): 
-    """Generate a directory tree starting from the provided path.""" 
-    tree = "" " 
-    for root, _, files in os.walk(start_path): 
-        # Filter out irrelevant files and directories 
-        if ".git" in root or "__pycache__" in root or ".cache" in root: 
-            continue 
-        level = root.replace(start_path, '').count(os.sep) 
-        indent = ' ' * 4 * (level) 
-        tree += f"{indent}{os.path.basename(root)}/
-" 
-        subindent = ' ' * 4 * (level + 1) 
-        for fi in files: 
-            tree += f"{subindent}{fi}
-" 
+def generate_directory_tree(start_path='.'):
+    """Generate a directory tree starting from the provided path."""
+    tree = ""
+    for root, _, files in os.walk(start_path):
+        # Filter out irrelevant files and directories
+        if ".git" in root or "__pycache__" in root or ".cache" in root:
+            continue
+        level = root.replace(start_path, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        tree += f"{indent}{os.path.basename(root)}/\n"
+        subindent = ' ' * 4 * (level + 1)
+        for fi in files:
+            tree += f"{subindent}{fi}\n"
     return tree
 
 # Parse command line arguments
@@ -84,7 +85,13 @@ with TemporaryDirectory(ignore_cleanup_errors=True) as TEMP_DIR:
     memory = MemorySaver()
     model = ChatOpenAI(model="gpt-4o", max_retries=5)
     search = TavilySearchResults(max_results=2)
-    tools = [search, create_pull_request, respond_to_pr_comment, get_current_weather, get_forecast, get_historical_weather] + FILE_TOOLKIT.get_tools()
+    tools = [search,
+             create_pull_request,
+             respond_to_pr_comment,
+             get_current_weather,
+             get_forecast,
+             get_historical_weather
+            ] + FILE_TOOLKIT.get_tools()
     agent_executor = create_react_agent(model, tools, checkpointer=memory)
 
     # Load system prompt

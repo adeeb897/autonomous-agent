@@ -1,8 +1,9 @@
 ## Date: 2023-10-09
 
 ### Tasks Completed
-- [x] Researched current major social issues in 2023.
-- [x] Documented findings and proposed a social impact plan in notes/social_impact_plan.md.
+- [x] Researched and selected WeatherAPI.com for climate data integration.
+- [x] Integrated WeatherAPI.com into the system.
+- [x] Documented the integration process and usage.
 
 ### In Progress
 - Task 1: Implement climate emergency plan.

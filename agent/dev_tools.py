@@ -88,12 +88,12 @@ class GitRepo:
                 # If the pull request is merged, return a success message
                 if self.current_pr.merged:
                     print("Pull request has been merged!")
-                    return "Pull request has been merged!"
+                    return "Pull request has been merged! Feel free to exit for now."
                 # If the pull request is closed without being merged, return a failure message
                 if self.current_pr.state == "closed":
                     self.current_pr = None
                     print("Pull request has been closed without being merged.")
-                    return "Pull request has been closed without being merged."
+                    return "Pull request has been closed. Please await further user instructions."
                 # If comments are added, return them to the agent
                 comments = self.current_pr.get_comments(
                     sort="added",
