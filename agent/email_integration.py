@@ -41,15 +41,18 @@ class SESEmailSender:
             print(f"Error sending email: {e}")
 
 def send_email(service, from_email, to_email, subject, content):
-    if service == "sendgrid":
-        email_sender = SendGridEmailSender()
-    elif service == "ses":
-        email_sender = SESEmailSender()
-    else:
-        raise ValueError("Unsupported email service. Choose 'sendgrid' or 'ses'.")
+    try:
+        if service == "sendgrid":
+            email_sender = SendGridEmailSender()
+        elif service == "ses":
+            email_sender = SESEmailSender()
+        else:
+            raise ValueError("Unsupported email service. Choose 'sendgrid' or 'ses'.")
 
-    email_sender.send_email(from_email, to_email, subject, content)
-    log_email_sent(from_email, to_email, subject, content, service)
+        email_sender.send_email(from_email, to_email, subject, content)
+        log_email_sent(from_email, to_email, subject, content, service)
+    except Exception as e:
+        print(f"Failed to send email: {e}")
 
 def log_email_sent(from_email, to_email, subject, content, service):
     # A function to log the email sent details
