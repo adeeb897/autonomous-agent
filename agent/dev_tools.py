@@ -81,6 +81,9 @@ class GitRepo:
                 )
                 print(f"Pull request created: {self.current_pr.html_url}")
 
+            # Notify human reviewers
+            self.notify_human_reviewers()
+
             # Wait for the pull request to be reviewed and/or merged
             while True:
                 print("Checking pull request status...")
@@ -158,3 +161,8 @@ class GitRepo:
         return "\n".join(
             [f"{commit.hexsha[:5]}: {commit.message}" for commit in commits]
         )
+
+    def notify_human_reviewers(self):
+        """Notify human reviewers when a significant change is made."""
+        # Placeholder for notification logic
+        print("Notifying human reviewers about the significant change.")

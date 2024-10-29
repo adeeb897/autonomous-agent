@@ -47,6 +47,18 @@
   - [ ] Regularly test and validate these mechanisms.
   - [ ] Document the knowledge ingestion pipeline and ethical checks.
 
+- Task 6: Implement a sandboxed environment for the agent.
+  - [ ] Research and implement sandboxing techniques using Docker or other containerization tools.
+  - [ ] Test the sandboxed environment to ensure it isolates the agent effectively.
+
+- Task 7: Enhance content filtering mechanisms in the knowledge ingestion pipeline.
+  - [ ] Integrate additional checks for misinformation.
+  - [ ] Add logging for content validation steps.
+
+- Task 8: Establish regular human oversight for significant changes and new integrations.
+  - [ ] Update the pull request creation process to include a review step.
+  - [ ] Add a function to notify human reviewers when a significant change is made.
+
 ### Blockers
 - None at this moment.
 

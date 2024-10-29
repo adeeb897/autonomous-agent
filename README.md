@@ -38,6 +38,12 @@ TODO: Isolate the agent to a sandboxed environment.
    - Install Docker from [Docker's official website](https://www.docker.com/get-started).
    - Ensure Docker is running.
 
+5. **Run the Docker container**:
+   ```
+   docker build -t autonomous-agent .
+   docker run -it --rm --name agent-container autonomous-agent
+   ```
+
 ## Development
 
 To start running the agent execute the following:

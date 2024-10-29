@@ -11,6 +11,7 @@ import requests
 from langchain_community.agent_toolkits import FileManagementToolkit
 from detoxify import Detoxify
 from textblob import TextBlob
+import logging
 
 class KnowledgeIngestion:
     """A class to manage knowledge ingestion, including fetching and filtering content."""
@@ -18,6 +19,7 @@ class KnowledgeIngestion:
     def __init__(self, root_dir):
         self.root_dir = root_dir
         self.file_toolkit = FileManagementToolkit(root_dir=root_dir)
+        logging.basicConfig(level=logging.INFO)
 
     def fetch_resource(self, url, filename):
         """Fetch a resource from a URL and save it to the workspace."""
@@ -45,8 +47,15 @@ class KnowledgeIngestion:
             return f.read()
 
     def _validate_content(self, content):
-        """Validate the content for toxicity and bias."""
-        if self.is_toxic(content) or self.is_biased(content):
+        """Validate the content for toxicity, bias, and misinformation."""
+        if self.is_toxic(content):
+            logging.info("Content is toxic and has been filtered out.")
+            raise ValueError("Content is considered harmful and has been filtered out.")
+        if self.is_biased(content):
+            logging.info("Content is biased and has been filtered out.")
+            raise ValueError("Content is considered harmful and has been filtered out.")
+        if self.is_misinformation(content):
+            logging.info("Content contains misinformation and has been filtered out.")
             raise ValueError("Content is considered harmful and has been filtered out.")
 
     def _save_filtered_content(self, content, file_path):
@@ -74,6 +83,11 @@ class KnowledgeIngestion:
         # Placeholder for bias detection
         analysis = TextBlob(text)
         return 'bias' in analysis.lower()
+
+    @staticmethod
+    def is_misinformation(text):
+        # Placeholder for misinformation detection
+        return 'misinformation' in text.lower()
 
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""

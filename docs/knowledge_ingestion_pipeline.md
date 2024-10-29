@@ -5,17 +5,17 @@ The Knowledge Ingestion Pipeline is designed to fetch, filter, and ingest educat
 
 ## Components
 1. **Fetching Resources**: The pipeline fetches data from specified sources using HTTP requests.
-2. **Content Filtering**: Filters content using automated methods like toxicity analysis and bias detection.
+2. **Content Filtering**: Filters content using automated methods like toxicity analysis, bias detection, and misinformation checks.
 3. **Ethical and Safety Checks**: Ensures the content complies with ethical guidelines and safety constraints.
 
 ## Implementation
-The pipeline is implemented in the `KnowledgeIngestionPipeline` class, which includes methods for fetching resources, filtering content, and checking for toxicity and bias.
+The pipeline is implemented in the `KnowledgeIngestionPipeline` class, which includes methods for fetching resources, filtering content, and checking for toxicity, bias, and misinformation.
 
 ### Fetching Resources
 The `fetch_resources` method sends HTTP requests to the specified sources and retrieves the content.
 
 ### Content Filtering
-The `filter_content` method filters out content that is toxic or biased using the `is_toxic` and `is_biased` methods.
+The `filter_content` method filters out content that is toxic, biased, or contains misinformation using the `is_toxic`, `is_biased`, and `is_misinformation` methods.
 
 ### Ethical and Safety Checks
 The `EthicalChecks` class provides methods to ensure the content complies with ethical guidelines and safety constraints.
