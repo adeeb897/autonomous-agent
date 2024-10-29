@@ -20,6 +20,9 @@ The `is_safe` method ensures the content does not contain unsafe elements.
 ### Validation
 The `validate` method combines guideline compliance and safety checks to validate the content.
 
+### Integration with Knowledge Ingestion
+The ethical checks are integrated into the knowledge ingestion process to ensure that the content being ingested is safe, unbiased, and ethically compliant. This integration involves validating the content for toxicity, bias, and misinformation before it is added to the knowledge base.
+
 ## Usage
 ```python
 from agent.ethical_checks import EthicalChecks
