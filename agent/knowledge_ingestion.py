@@ -23,25 +23,37 @@ class KnowledgeIngestion:
         """Fetch a resource from a URL and save it to the workspace."""
         response = requests.get(url, timeout=10)
         if response.status_code == 200:
-            file_path = os.path.join(self.root_dir, filename)
-            with open(file_path, "wb") as f:
-                f.write(response.content)
-            return file_path
+            return self._save_resource_to_workspace(response, filename)
         raise RuntimeError(f"Failed to fetch resource from {url}")
+
+    def _save_resource_to_workspace(self, response, filename):
+        """Save the fetched resource to the workspace."""
+        file_path = os.path.join(self.root_dir, filename)
+        with open(file_path, "wb") as f:
+            f.write(response.content)
+        return file_path
 
     def filter_content(self, file_path):
         """Filter content to exclude low-quality or harmful information."""
-        filtered_file_path = os.path.join(
-            self.root_dir, "filtered_" + os.path.basename(file_path)
-        )
+        content = self._read_content(file_path)
+        self._validate_content(content)
+        return self._save_filtered_content(content, file_path)
 
+    def _read_content(self, file_path):
+        """Read the content from the file."""
         with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
+            return f.read()
 
-        # Enhanced content filtering logic
+    def _validate_content(self, content):
+        """Validate the content for toxicity and bias."""
         if self.is_toxic(content) or self.is_biased(content):
             raise ValueError("Content is considered harmful and has been filtered out.")
 
+    def _save_filtered_content(self, content, file_path):
+        """Save the filtered content to a new file."""
+        filtered_file_path = os.path.join(
+            self.root_dir, "filtered_" + os.path.basename(file_path)
+        )
         with open(filtered_file_path, "w", encoding="utf-8") as f:
             f.write(content)
         return filtered_file_path
@@ -66,8 +78,7 @@ class KnowledgeIngestion:
     def ingest_resource(self, url, filename):
         """Fetch, filter, and save a resource to the knowledge base."""
         file_path = self.fetch_resource(url, filename)
-        filtered_path = self.filter_content(file_path)
-        return filtered_path
+        return self.filter_content(file_path)
 
 
 # Example usage
